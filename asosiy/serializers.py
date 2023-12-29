@@ -8,6 +8,11 @@ class SuvSerializer(serializers.ModelSerializer):
         model = Suv
         fields = '__all__'
 
+    def validate_mijoz_qarz(self, qiymat):
+        if qiymat > 19:
+            raise ValidationError("Bunday katta litrlarda suv sotilmaydi")
+        return qiymat
+
 
 class MijozSerializer(serializers.ModelSerializer):
     class Meta:

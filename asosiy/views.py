@@ -43,6 +43,12 @@ class SuvAPi(APIView):
 class MijozlarAPi(APIView):
     def get(self, request):
         mijozlar = Mijoz.objects.all()
+        ism = request.query_params.get("ism")
+        tel = request.query_params.get("tel")
+        if ism:
+            mijozlar = mijozlar.filter(ism__contains=ism)
+        if tel:
+            mijozlar = mijozlar.filter(tel__contains=tel)
         serializer = MijozSerializer(mijozlar, many=True)
         return Response(serializer.data)
 
